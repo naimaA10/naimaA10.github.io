@@ -192,55 +192,19 @@ class Membrane:
 				z1= (-a1 * x - b1 * y - d1) / c1 # membrane 2
 				plan1.append([x,y,z])
 				plan2.append([x,y,z1])
-		print("ok")
+		
 		# Ouvrir pdb sur pymol et ajouter les points et vecteurs
 		pymol.finish_launching(['pymol', '-qc'])
 		pymol.cmd.load(name_pdb, name_pdb[:-4])
-		print("ok")
+		
 		for i, point in enumerate(plan1):
-			#print(point)
 			x, y , z= point
 			pymol.cmd.pseudoatom(f'plan1_{i}', resi='CM', pos=[x,y,z], color=(1, 0, 0), label=f'plan1 {i}')
-		print("yes")
 		
 		for i, point in enumerate(plan2):
 			x, y , z= point
 			pymol.cmd.pseudoatom(f'plan1_{i}', resi='CM', pos=[x,y,z], color=(0, 0, 1), label=f'plan1 {i}')
 
-		#save pdb
+		# save pdb
 		new_pdb = f'{name_pdb[:-4]}_membrane.pdb'
 		pymol.cmd.save(new_pdb)
-
-if __name__ == "__main__":
-
-	# Crée une protéine, extraire coordonnées CA, calcul SASA et du centre de masse
-	protein1 = Protein("1uaz_A.pdb")
-	protein1.extract_CA_access_solvant()
-	print(protein1)
-
-	# Crée sphère et ajouter les points sur demi sphère 
-	sphere1 = Sphere(protein1.center_of_mass, 20, 2) # (cdm, rayon, nb points)
-	sphere1.build_sphere()
-	
-	# Crée les vecteurs à partir d'un liste contenant les coordonnées des points
-	# Ajout d'une équation cartésienne pour chaque plan où le vecteurs est normale
-	vector1 = Vector(protein1.center_of_mass, sphere1.points) # coords center_of_mass, coords des points
-
-
-	# Ajouter deux droites orthogonal à la droite du vecteur 
-	#membrane = Membrane()
-	#membrane.add_pdb("1uaz_A.pdb", protein1.center_of_mass, vector1.list_points, vector1.list_vectors)
-	#print(vector1.list_vectors)
-	#print(vector1.list_points)
-
-	#eq cartésienne
-	"""print("\nLes équations cartésienne plan 1")
-	for eq in vector1.list_eq_cartesienne1:
-		a,b,c,d = eq
-		print(f"{a}x + {b}y + {c}z + {d} = 0")
-"""
-	membrane3 = Membrane(vector1.list_eq_cartesienne1[0],vector1.list_eq_cartesienne2[0])
-	#ratio = membrane3.move_membrane(protein1.ca_coordinates, protein1.type_hydrophobic) # ca_coords
-	print(f"\nLe ratio est : {ratio}\n")
-	membrane3.add_pdb("1uaz_A.pdb", protein1.center_of_mass, vector1.list_points, vector1.list_vectors)
-
