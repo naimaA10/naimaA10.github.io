@@ -20,7 +20,7 @@ PyMol
 
 Create conda environment and install dependendies:
 
-	$ conda env create -f projet_transmembranaire.yml
+	$  conda env create -f projet_transmembranaire.yml
 
 Load conda environment:
 
@@ -30,9 +30,9 @@ Load conda environment:
 
 To run the program
 	
-	$ python3 protein.py pdb_name
+	$ python3 protein.py 1uaz.pdb
 
-with pdb_name corresponding to the name of the pdb file, for example "1uaz.pdb".
+with 1uaz.pdb corresponding to the name of the pdb file
 
 - This program will create a protein from the name_pdb file and the centre of mass of the protein will be calculated.
 
