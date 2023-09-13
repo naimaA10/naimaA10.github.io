@@ -1,0 +1,12 @@
+name: projet_transmembranaire
+channels:
+    - defaults
+    - bioconda
+    - conda-forge
+    - salilab
+dependencies:
+    - python=3.11
+    - biopython
+    - numpy
+    - pymol-open-source
+    - dssp
