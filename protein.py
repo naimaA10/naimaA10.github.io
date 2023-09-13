@@ -120,7 +120,7 @@ if __name__ == "__main__":
 	""" Crée une sphère de rayon 20 avec pour centre le centre de masse et 
 	placer aléatoirement 10 points"""
 
-	sphere = Sphere(protein.center_of_mass, 40, 50)
+	sphere = Sphere(protein.center_of_mass, 20, 50)
 	sphere.build_sphere()
 	print(sphere) # Information sur la sphere
 
